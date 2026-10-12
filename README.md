@@ -62,8 +62,6 @@ Running it again is safe.
   the editor does not re-read the widget list by itself.
 - The network interface is `vmbr0`. If yours is named differently, change `network_vmbr0` in the theme
   and `interface` in `config.json`.
-- Labels in the portrait layout are in Russian («Температура», «Диск»). Edit them in the theme
-  or in `portrait_dashboard.gen.py`.
 - Updating s1panel from its repository overwrites `api.js` and `iconify.js` — run `install.sh` again after an update.
 
 ## License

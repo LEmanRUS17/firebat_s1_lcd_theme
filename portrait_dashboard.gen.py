@@ -10,7 +10,7 @@ def text(g,val,fmt,font,color,align,rect,refresh,sensor=True):
 text(1,"clock","{0}","bold 26px Arial","#ffffff","center",(0,4,170,28),5000)
 text(1,"calendar","{5}, {7} {2}","13px Arial","#878787","center",(0,32,170,16),30000)
 rows=[("cpu_usage","{0}","chip","#00e600","CPU","{0}%",1000),
-      ("cpu_temp","{0}","thermometer","#ff6600","Температура","{0}°C",1000),
+      ("cpu_temp","{0}","thermometer","#ff6600","CPU Temp","{0}°C",1000),
       ("memory","{2}","memory","#3399ff","RAM {14}","{2}%",2000)]
 y=56
 for i,(s,dfmt,icon,col,label,val,ref) in enumerate(rows):
@@ -22,7 +22,7 @@ for i,(s,dfmt,icon,col,label,val,ref) in enumerate(rows):
     y+=66
 # y = 254
 add(5,"iconify",(6,y+2,20,20),sensor=False,value="harddisk",iconSet="mdi",color="#cccccc",refresh=0)
-text(5,"space_root","Диск: {4}%","14px Arial","#cccccc","left",(32,y+3,136,19),10000)
+text(5,"space_root","Disk: {4}%","14px Arial","#cccccc","left",(32,y+3,136,19),10000)
 y+=30
 add(6,"iconify",(6,y+2,20,20),sensor=False,value="lan",iconSet="mdi",color="#cccccc",refresh=0)
 text(6,"network_vmbr0","{0}: {17}","14px Arial","#cccccc","left",(32,y+3,136,19),10000)

@@ -35,7 +35,7 @@ Shows: clock and date, CPU load, CPU temperature, RAM usage, root disk usage and
 s1panel must already be installed on the target device (default path `/opt/acemagic/s1panel`).
 
 ```sh
-git clone https://github.com/<user>/acemagic-s1-homeserver-theme.git /tmp/s1theme
+git clone https://github.com/LEmanRUS17/firebat_s1_lcd_theme.git /tmp/s1theme
 sh /tmp/s1theme/install.sh
 # custom install path: sh install.sh /path/to/s1panel
 ```

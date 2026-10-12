@@ -35,7 +35,7 @@
 На целевом устройстве должен быть установлен s1panel (по умолчанию `/opt/acemagic/s1panel`).
 
 ```sh
-git clone https://github.com/<user>/acemagic-s1-homeserver-theme.git /tmp/s1theme
+git clone https://github.com/LEmanRUS17/firebat_s1_lcd_theme.git /tmp/s1theme
 sh /tmp/s1theme/install.sh
 # другой путь установки: sh install.sh /path/to/s1panel
 ```

@@ -1,0 +1,76 @@
+--- a/api.js
++++ b/api.js
+@@ -343,6 +343,28 @@
+ 
+         if (request.orientation !== _theme.orientation) {
+ 
++            // per-orientation layouts: screen.widgets holds the active layout,
++            // screen.widgets_<orientation> holds the layout for the other one
++            if ('portrait' === request.orientation || 'landscape' === request.orientation) {
++
++                const _from = _theme.orientation;
++                const _to = request.orientation;
++
++                _theme.screens.forEach(screen => {
++
++                    const _alt = screen['widgets_' + _to];
++
++                    if (Array.isArray(_alt)) {
++
++                        screen['widgets_' + _from] = screen.widgets;
++                        screen.widgets = _alt;
++                        delete screen['widgets_' + _to];
++                    }
++                });
++
++                _state.redraw_want++;
++            }
++
+             switch (request.orientation) {
+ 
+                 case 'portrait':
+--- a/widgets/iconify.js
++++ b/widgets/iconify.js
+@@ -6,6 +6,11 @@
+  */
+ const node_canvas = require('canvas');
+ const logger = require('../logger');
++const fs = require('fs');
++const path = require('path');
++
++// local icon cache: icons/{iconSet}/{name}.svg
++const ICON_DIR = path.join(__dirname, '..', 'icons');
+ 
+ function start_draw(context, rect) {
+     context.save();
+@@ -74,6 +79,15 @@
+             return fulfill(_private.icons[slug]);
+         }
+         
++        const local_file = path.join(ICON_DIR, iconSet, name + '.svg');
++
++        if (fs.existsSync(local_file)) {
++
++            _private.icons[slug] = fs.readFileSync(local_file, 'utf8');
++
++            return fulfill(_private.icons[slug]);
++        }
++
+         const url = `https://api.iconify.design/${slug}.svg`;
+ 
+         fetch(url, { signal: AbortSignal.timeout(5000) }).then(response => {
+@@ -88,6 +102,14 @@
+             return response.text().then(image => {
+ 
+                 _private.icons[slug] = image;
++
++                try {
++                    fs.mkdirSync(path.dirname(local_file), { recursive: true });
++                    fs.writeFileSync(local_file, image);
++                }
++                catch (err) {
++                    logger.error(`cannot save icon ${local_file}: ${err}`);
++                }
+     
+                 return fulfill(image);
+             });
